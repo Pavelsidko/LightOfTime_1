@@ -52,6 +52,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         health = maxHealth;
         healthBar.UpdateHealthBar(health, maxHealth);
+        anim = GetComponent<Animator>();
         
         //target = new Vector2(player.transform.position.x, player.transform.position.y);
     }
@@ -164,7 +165,7 @@ public class EnemyController : MonoBehaviour
     {
 
     }
-
+    private bool isAlive = true;
     public void TakeDamage(float damageAmount)
     {
         if(gameObject != null)
@@ -172,52 +173,27 @@ public class EnemyController : MonoBehaviour
             flashEffect.Flash();
             health -= damageAmount;
             healthBar.UpdateHealthBar(health, maxHealth);
-            if (health <= 0)
+            if (health <= 0 && isAlive)
             {
-                //Death();
+                isAlive = false;
                 StartCoroutine(DeathCoroutine());
             }
         }
     }
 
-    // Ошибка пытается достать файл который был уже удален! 
-    public void Death()
-    {
-
-        if (gameObject != null)
-        {
-            GetComponent<LootBag>().InstantiateLoot(transform.position);
-            RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
-            //anim.SetBool("Is_Alive", false);
-            StartCoroutine(AnimCoroutine());
-
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
-        }
-
-    }
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ! 
+   
 
     public IEnumerator DeathCoroutine()
     {
-
-        float animDuration = 1f;
+        float animDuration = 0.3f;
+       
         anim.SetBool("Is_Alive", false);
-        Debug.Log("state changed");
         yield return new WaitForSeconds(animDuration);
-
         GetComponent<LootBag>().InstantiateLoot(transform.position);
         RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
-        //Destroy(gameObject);
-        gameObject.SetActive(false);
-    }
-
-    public IEnumerator AnimCoroutine()
-    {
-        float animDuration = 1f;
-        anim.SetBool("Is_Alive", false);
-        Debug.Log("state changed");
-        yield return new WaitForSeconds(animDuration);
-        
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 
 
