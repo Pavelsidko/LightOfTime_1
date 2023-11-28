@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public Joystick joystick;
     private Animator anim;
     private bool facingLeft = true;
-    
 
     void Start()
     {
@@ -32,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         
 
         rb.velocity = new Vector3(horizontal * speed, vertical * speed, 0);
-        collectedCoinsText.text = "COINS COLLECTED: " + collectedCoinsAmount;
+        collectedCoinsText.text = ": " +collectedCoinsAmount;
         speed = GameController.MoveSpeed;
 
         anim.SetFloat("MoveX", horizontal);

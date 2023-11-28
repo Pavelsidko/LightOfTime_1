@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -21,11 +22,12 @@ public class Collection : MonoBehaviour
     public float attackSpeedChange;
     public float bulletSizeChange;
     public int coinValue;
+    
 
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = item.itemImage;
-        Destroy(GetComponent <PolygonCollider2D>());
+        Destroy(GetComponent<PolygonCollider2D>());
         gameObject.AddComponent<PolygonCollider2D>();
     }
 
@@ -47,4 +49,7 @@ public class Collection : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
+    
 }

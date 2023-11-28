@@ -20,8 +20,7 @@ public class GameController : MonoBehaviour
     private bool bootCollected = false;
     private bool screwCollected = false;
     private bool potionCollected = false;
-    private static int coinsCollected = 0; 
-
+    private static int coinsCollected = 0;
 
     public List<string> collectedNames = new List<string>();
 
@@ -30,8 +29,8 @@ public class GameController : MonoBehaviour
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public static float FireRate { get => fireRate; set => fireRate = value; }
     public static float BulletSize { get => bulletSize; set => bulletSize = value; }
-    public static int CoinsCollected { get => coinsCollected; set => coinsCollected  = value; }
-    
+    public static int CoinsCollected { get => coinsCollected; set => coinsCollected = value; }
+
 
 
     private void Awake()
@@ -40,10 +39,10 @@ public class GameController : MonoBehaviour
         {
             instance = this;
         }
-        
+
     }
 
-    
+
     void Update()
     {
         healthText.text = "Health: " + health;
@@ -52,7 +51,7 @@ public class GameController : MonoBehaviour
     public static void DamagePlayer(float damage)
     {
         health -= damage;
-        
+
 
         if (health <= 0)
         {
@@ -63,13 +62,14 @@ public class GameController : MonoBehaviour
 
 
 
-    public static void HealPlayer(float healAmount) 
-    {
+    public static void HealPlayer(float healAmount)
+    { 
         health = Mathf.Min(maxHealth, Health += healAmount);
     }
 
     public static void MoveSpeedChange(float speed)
     {
+        
         moveSpeed += speed;
     }
     public static void FireRateChange(float rate)
