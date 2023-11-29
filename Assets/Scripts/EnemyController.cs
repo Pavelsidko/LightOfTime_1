@@ -33,13 +33,12 @@ public class EnemyController : MonoBehaviour
     public float attackRange;
     private bool coolDownAttack = false;
     public float coolDown;
-    private bool chooseDir = false;
-    private bool dead = false;
     private Animator anim;
-    private Vector3 randomDir;
+    private Weapon weapon;
     public bool notInRoom = false;
     [SerializeField] private HitEffect flashEffect;
-    private AnimatorStateInfo stateInfo;
+    Vector2 wayPoint;
+    [SerializeField] float wanderRange;
 
     private void Awake()
     {
@@ -53,8 +52,7 @@ public class EnemyController : MonoBehaviour
         health = maxHealth;
         healthBar.UpdateHealthBar(health, maxHealth);
         anim = GetComponent<Animator>();
-        
-        //target = new Vector2(player.transform.position.x, player.transform.position.y);
+        weapon = GameObject.FindObjectOfType(typeof(Weapon)) as Weapon;
     }
 
     
@@ -88,7 +86,6 @@ public class EnemyController : MonoBehaviour
             {
                 currState = EnemyState.Wander;
             }
-
             if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
             {
                 currState = EnemyState.Attack;
@@ -105,37 +102,28 @@ public class EnemyController : MonoBehaviour
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
 
-
-
-    private IEnumerator ChooseDirection()
-    {
-        chooseDir= true;
-        yield return new WaitForSeconds(Random.Range(2f, 8f));
-        randomDir = new Vector3(0, 0, Random.Range(0, 360));
-        Quaternion nextRotation = Quaternion.Euler(randomDir);
-        transform.rotation = Quaternion.Lerp(transform.rotation, nextRotation, Random.Range(0.5f, 2.5f));
-        chooseDir = false;
-    }
-
     void Wander() 
     {
-        if(!chooseDir)
+        transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        if (Vector2.Distance(transform.position, wayPoint) < wanderRange)
         {
-            StartCoroutine(ChooseDirection());
+            SetNewDestination();
         }
-        transform.position += -transform.right * speed * Time.deltaTime;
-        if(IsPlayerInRange(range))
+        if (IsPlayerInRange(range))
         {
             currState= EnemyState.Follow;
         }
-
-
     }
+    void SetNewDestination()
+    {
+        wayPoint = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+    }
+
+
 
     void Follow()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
-        
     }
 
     private void Attack()
@@ -149,22 +137,18 @@ public class EnemyController : MonoBehaviour
                     StartCoroutine(CoolDown());
                     break;
                 case (EnemyType.Ranged):
-                   ////GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
-                   // bullet.GetComponent<Bullet>().GetPlayer(player.transform);
-                   // //Vector2 direction = player.transform.position - transform.position;
-                   // bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
-                   // bullet.GetComponent<Bullet>().isEnemyBullet = true;
                     StartCoroutine(CoolDown());
                     break;
             }
         }
             
     }
-
+    
     private void Idle()
     {
 
     }
+
     private bool isAlive = true;
     public void TakeDamage(float damageAmount)
     {
@@ -181,7 +165,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // ������ �������� ������� ���� ������� ��� ��� ������! 
+    // null reference exception! 
    
 
     public IEnumerator DeathCoroutine()

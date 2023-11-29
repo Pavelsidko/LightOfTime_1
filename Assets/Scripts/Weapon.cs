@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -26,6 +27,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        enemyController = GameObject.FindObjectOfType(typeof(EnemyController)) as EnemyController;
     }
 
 
@@ -55,12 +57,21 @@ public class Weapon : MonoBehaviour
         }
         else if (gunType == GunType.Enemy) 
         {
+            EnemyShooting();
+        }
+        // Сделать чтоб боты не стреляли когда я не в ренже
+        
+    }
+    public void EnemyShooting()
+    {
+        if (enemyController.IsPlayerInRange(enemyController.range) && enemyController.enemyType==EnemyType.Ranged) 
+        {
             Vector3 difference = player.transform.position - transform.position;
             float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
-            
+
             if (time <= 0f)
-            { 
+            {
                 Instantiate(bullet, point.position, transform.rotation);
                 bullet.GetComponent<Bullet>().isEnemyBullet = true;
                 time = fireDelay;
@@ -70,10 +81,8 @@ public class Weapon : MonoBehaviour
                 time -= Time.deltaTime;
             }
         }
-        // Сделать чтоб боты не стреляли когда я не в ренже
-        // GetComponent<EnemyController>().IsPlayerInRange(GetComponent<EnemyController>().range) == true
-    }
 
+    }
 
 
 
