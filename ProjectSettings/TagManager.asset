@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Block
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -53,4 +55,10 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 1754301263
+    locked: 0
+  - name: Terrain
+    uniqueID: 1161730215
+    locked: 0
+  - name: Enemies
+    uniqueID: 4176009633
     locked: 0

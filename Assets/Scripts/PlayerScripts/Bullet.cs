@@ -43,8 +43,13 @@ public class Bullet : MonoBehaviour
         }
 
         transform.Translate(Vector2.up * speed * Time.deltaTime);
-
-
+        if (other.collider != null)
+        {
+            if (other.collider.CompareTag("Block"))
+            {
+                Destroy(gameObject);
+            }
+        }
 
         //if (isEnemyBullet)
         //{

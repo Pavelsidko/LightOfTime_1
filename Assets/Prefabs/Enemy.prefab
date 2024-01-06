@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5891120690780701518}
   - component: {fileID: 314398558782308364}
   - component: {fileID: 1494675861223423084}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2619717392948307243}
   - component: {fileID: 7129078069957651039}
   - component: {fileID: 535235649315368849}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63835db3cdbca7849a724bee896e6f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedItemPrefab: {fileID: 0}
+  droppedItemPrefab: {fileID: 1378883926786897218, guid: b63d97b61ee3aff45be937f2480287b2, type: 3}
   lootList:
   - {fileID: 11400000, guid: bee2e034bc5e627489ab4880e39fa3b3, type: 2}
 --- !u!212 &2619717392948307243
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 1807739977778100176}
   - component: {fileID: 2671444017801763134}
   - component: {fileID: 889906282204324256}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 366093538390427577}
   - component: {fileID: 5368606956796812189}
   - component: {fileID: 7396378289439988671}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 8857504800730608435}
   - component: {fileID: 4941641924951592703}
   - component: {fileID: 932272578657298110}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -575,7 +575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2615337740763613360}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

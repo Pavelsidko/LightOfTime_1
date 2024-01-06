@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
 
     public Joystick weaponJoystick;
     public GunType gunType;
-      
+
 
     public enum GunType{
         Player,
@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         if (gunType == GunType.Player)
-        {
+        { 
             fireDelay = GameController.FireRate;
 
             float rotateZ = Mathf.Atan2(weaponJoystick.Vertical, weaponJoystick.Horizontal) * Mathf.Rad2Deg;
@@ -58,9 +58,7 @@ public class Weapon : MonoBehaviour
         else if (gunType == GunType.Enemy) 
         {
             EnemyShooting();
-        }
-        // Сделать чтоб боты не стреляли когда я не в ренже
-        
+        }       
     }
     public void EnemyShooting()
     {
