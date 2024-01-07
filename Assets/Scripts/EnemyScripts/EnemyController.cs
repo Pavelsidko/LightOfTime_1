@@ -61,7 +61,8 @@ public class EnemyController : MonoBehaviour
         switch (currState)
         {
             case EnemyState.Idle:
-                Idle(); break;
+                Idle(); 
+                break;
             case EnemyState.Wander:
                 Wander();
                 break;
@@ -102,7 +103,7 @@ public class EnemyController : MonoBehaviour
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
 
-    void Wander() 
+    void Wander()
     {
         transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
         if (Vector2.Distance(transform.position, wayPoint) < wanderRange)
@@ -111,9 +112,10 @@ public class EnemyController : MonoBehaviour
         }
         if (IsPlayerInRange(range))
         {
-            currState= EnemyState.Follow;
+            currState = EnemyState.Follow;
         }
     }
+
     void SetNewDestination()
     {
         wayPoint = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
@@ -125,6 +127,7 @@ public class EnemyController : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
+
 
     private void Attack()
     {

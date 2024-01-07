@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7876969557624625903}
   - component: {fileID: 7326595933238607398}
   - component: {fileID: 749393178184329373}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: NewRangedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -161,8 +161,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -118957663
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 4367289792872251007, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 6995272587268592974}
   - component: {fileID: 3187507406135402226}
   - component: {fileID: 5039242069773582432}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 979430976128485891}
   - component: {fileID: 7994586835524451688}
   - component: {fileID: 1823824729653829845}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 6915678360815514674}
   - component: {fileID: 3507549881743561973}
   - component: {fileID: 667258715013927802}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 1257042994756920130}
   - component: {fileID: 98473676955789188}
   - component: {fileID: 616266101464937377}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 7665774448147829682}
   - component: {fileID: 2099697199018591727}
   - component: {fileID: 3139423458396236867}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863739639003803998}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Point
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -711,7 +711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7187894167464727499}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

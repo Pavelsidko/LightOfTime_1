@@ -17,10 +17,21 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private bool facingLeft = true;
 
+
+    private void OnEnable()
+    {
+        GameController.onPlayerDeath += DisablePlayerMovement;
+    }
+    private void OnDisable()
+    {
+        GameController.onPlayerDeath -= DisablePlayerMovement;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        EnablePlayerMovement();
     }
 
    
@@ -64,6 +75,18 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-   
+    private void DisablePlayerMovement()
+    {
+        anim.enabled= false;
+        rb.bodyType = RigidbodyType2D.Static;
+    }
+    private void EnablePlayerMovement()
+    {
+        anim.enabled = true;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+
+
+
 
 }

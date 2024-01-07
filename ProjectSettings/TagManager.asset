@@ -7,14 +7,15 @@ TagManager:
   - Enemy
   - Block
   - Door
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
-  - 
+  - Enemies
   - 
   - 
   - 
@@ -61,4 +62,7 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 4176009633
+    locked: 0
+  - name: Floor
+    uniqueID: 2708069509
     locked: 0

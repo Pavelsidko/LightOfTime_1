@@ -239,9 +239,6 @@ MonoBehaviour:
   fireDelay: 0.7
   bullet: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
   pointUp: {fileID: 7581578332330235665}
-  pointDown: {fileID: 237753446092973877}
-  pointLeft: {fileID: 7538934840205329071}
-  pointRight: {fileID: 9025103308057919142}
 --- !u!1 &2897532894357825259
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,9 +341,6 @@ MonoBehaviour:
   fireDelay: 0.7
   bullet: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
   pointUp: {fileID: 7581578332330235665}
-  pointDown: {fileID: 237753446092973877}
-  pointLeft: {fileID: 7538934840205329071}
-  pointRight: {fileID: 9025103308057919142}
 --- !u!1 &3515953704905330658
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +636,9 @@ MonoBehaviour:
   speed: 1
   attackRange: 1
   coolDown: 2
-  notInRoom: 0
+  notInRoom: 1
+  flashEffect: {fileID: 0}
+  wanderRange: 0.5
 --- !u!114 &6359289340104031412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,9 +670,6 @@ MonoBehaviour:
   fireDelay: 0.7
   bullet: {fileID: 7934015795002941588, guid: 0417bd5001ed80947bcc95ff449b80ed, type: 3}
   pointUp: {fileID: 7581578332330235665}
-  pointDown: {fileID: 237753446092973877}
-  pointLeft: {fileID: 7538934840205329071}
-  pointRight: {fileID: 9025103308057919142}
 --- !u!1 &5299213499716376578
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,9 +772,6 @@ MonoBehaviour:
   fireDelay: 0.7
   bullet: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
   pointUp: {fileID: 7581578332330235665}
-  pointDown: {fileID: 237753446092973877}
-  pointLeft: {fileID: 7538934840205329071}
-  pointRight: {fileID: 9025103308057919142}
 --- !u!1 &5368451766973910925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1118,3 @@ MonoBehaviour:
   fireDelay: 0.7
   bullet: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
   pointUp: {fileID: 7581578332330235665}
-  pointDown: {fileID: 237753446092973877}
-  pointLeft: {fileID: 7538934840205329071}
-  pointRight: {fileID: 9025103308057919142}

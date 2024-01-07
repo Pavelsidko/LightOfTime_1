@@ -22,8 +22,13 @@ public class Room : MonoBehaviour
     public Door topDoor;
     public Door bottomDoor;
 
+    public GameObject wallPrefabLeft;
+    public GameObject wallPrefabRight;
+    public GameObject wallPrefabTop;
+    public GameObject wallPrefabBottom;
 
     public List<Door> doors = new List<Door>();
+    
 
     void Start()
     {
@@ -79,16 +84,36 @@ public class Room : MonoBehaviour
             {
                 case Door.DoorType.right:
                     if (GetRight() == null)
-                        door.gameObject.SetActive(false); break;
+                    {
+                        door.gameObject.SetActive(false);
+                        //Instantiate(wallPrefabRight, door.transform.position, Quaternion.identity);
+                        wallPrefabRight.SetActive(true);
+                    }
+                    break;
                 case Door.DoorType.left:
                     if (GetLeft() == null)
-                        door.gameObject.SetActive(false); break;
+                    {
+                        door.gameObject.SetActive(false);
+                        //Instantiate(wallPrefabLeft, door.transform.position, Quaternion.identity);
+                        wallPrefabLeft.SetActive(true);
+                    }
+                    break;
                 case Door.DoorType.top:
                     if (GetTop() == null)
-                        door.gameObject.SetActive(false); break;
+                    {
+                        door.gameObject.SetActive(false);
+                        //Instantiate(wallPrefabTopBottom, door.transform.position, Quaternion.identity);
+                        wallPrefabTop.SetActive(true);
+                    }
+                    break;
                 case Door.DoorType.bottom:
                     if (GetBottom() == null)
-                        door.gameObject.SetActive(false); break;
+                    {
+                        door.gameObject.SetActive(false);
+                        //Instantiate(wallPrefabTopBottom, door.transform.position, Quaternion.identity);
+                        wallPrefabBottom.SetActive(true);
+                    }
+                    break;
             }
         }
     }

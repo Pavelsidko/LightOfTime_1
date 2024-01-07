@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class GameController : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class GameController : MonoBehaviour
     private bool screwCollected = false;
     private bool potionCollected = false;
     private static int coinsCollected = 0;
+
+    public static event Action onPlayerDeath;
+
 
     public List<string> collectedNames = new List<string>();
 
@@ -86,6 +91,7 @@ public class GameController : MonoBehaviour
     {
         coinsCollected += amount;
     }
+
     //public static void KnockBack(Vector2 kb)
     //{
     //    player.rb.AddForce(kb, ForceMode2D.Impulse);
@@ -126,8 +132,11 @@ public class GameController : MonoBehaviour
 
     private static void KillPlayer()
     {
-        //Destroy(gameObject);
+        //player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        //Destroy(player);
 
+        Debug.Log("Youre dead");
+        onPlayerDeath?.Invoke();
     }
 
 }
