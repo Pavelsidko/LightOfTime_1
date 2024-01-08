@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,7 +40,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private HitEffect flashEffect;
     Vector2 wayPoint;
     [SerializeField] float wanderRange;
-    [SerializeField] private AudioSource damageSoundEffect;
+    public static event Action OnBossDestroyed;
+
+
 
     private void Awake()
     {
@@ -53,7 +56,9 @@ public class EnemyController : MonoBehaviour
         healthBar.UpdateHealthBar(health, maxHealth);
         anim = GetComponent<Animator>();
         weapon = GameObject.FindObjectOfType(typeof(Weapon)) as Weapon;
+
     }
+
 
 
     void Update()
@@ -154,7 +159,7 @@ public class EnemyController : MonoBehaviour
 
     void SetNewDestination()
     {
-        wayPoint = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
+        wayPoint = new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5));
     }
 
 
@@ -192,7 +197,6 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject != null)
         {
-            damageSoundEffect.Play();
             flashEffect.Flash();
             health -= damageAmount;
             healthBar.UpdateHealthBar(health, maxHealth);
@@ -216,7 +220,7 @@ public class EnemyController : MonoBehaviour
 
         if (gameObject.CompareTag("Boss"))
         {
-            Debug.Log("Daun");
+            OnBossDestroyed?.Invoke(); // Генерация события при уничтожении босса
         }
         StopAllCoroutines();
         Destroy(gameObject);
