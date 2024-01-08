@@ -6,11 +6,11 @@ using UnityEngine;
 public enum EnemyState
 {
     Idle,
-    Wander, 
-    Follow, 
-    Die, 
+    Wander,
+    Follow,
+    Die,
     Attack
-}; 
+};
 
 
 public enum EnemyType
@@ -55,13 +55,13 @@ public class EnemyController : MonoBehaviour
         weapon = GameObject.FindObjectOfType(typeof(Weapon)) as Weapon;
     }
 
-    
+
     void Update()
     {
         switch (currState)
         {
             case EnemyState.Idle:
-                Idle(); 
+                Idle();
                 break;
             case EnemyState.Wander:
                 Wander();
@@ -76,32 +76,68 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-
-        if(!notInRoom)
+        if (!notInRoom)
         {
             if (IsPlayerInRange(range) && currState != EnemyState.Die)
             {
                 currState = EnemyState.Follow;
+
+                // Calculate the direction to the player
+                Vector3 direction = player.transform.position - transform.position;
+
+                // Flip the sprite based on the direction
+                if (direction.x < 0 && transform.localScale.x > 0)
+                {
+                    // If the player is on the left and the sprite is not already flipped, flip the sprite
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
+                else if (direction.x > 0 && transform.localScale.x < 0)
+                {
+                    // If the player is on the right and the sprite is flipped, revert the flip
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
             }
             else if (!IsPlayerInRange(range) && currState != EnemyState.Die)
             {
                 currState = EnemyState.Wander;
             }
+
             if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
             {
                 currState = EnemyState.Attack;
+
+                // Flip the sprite based on the direction to the player
+                Vector3 direction = player.transform.position - transform.position;
+                if (direction.x < 0 && transform.localScale.x > 0)
+                {
+                    // If the player is on the left and the sprite is not already flipped, flip the sprite
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
+                else if (direction.x > 0 && transform.localScale.x < 0)
+                {
+                    // If the player is on the right and the sprite is flipped, revert the flip
+                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                }
             }
         }
-        else 
+        else
         {
             currState = EnemyState.Idle;
-        }   
+        }
     }
+
 
     public bool IsPlayerInRange(float range)
     {
+        if (transform == null || player == null || player.transform == null)
+        {
+            // Здесь вы можете обработать ситуацию, когда один из объектов равен null
+            // Например, вы можете записать ошибку в журнал или выбросить исключение
+            return false;
+        }
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
+
 
     void Wander()
     {
@@ -128,10 +164,9 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
     }
 
-
     private void Attack()
     {
-        if (!coolDownAttack)
+        if (!coolDownAttack && !notInRoom)
         {
             switch (enemyType)
             {
@@ -144,9 +179,9 @@ public class EnemyController : MonoBehaviour
                     break;
             }
         }
-            
+
     }
-    
+
     private void Idle()
     {
 
@@ -155,7 +190,7 @@ public class EnemyController : MonoBehaviour
     private bool isAlive = true;
     public void TakeDamage(float damageAmount)
     {
-        if(gameObject != null)
+        if (gameObject != null)
         {
             flashEffect.Flash();
             health -= damageAmount;
@@ -168,13 +203,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // null reference exception! 
-   
 
     public IEnumerator DeathCoroutine()
     {
         float animDuration = 0.3f;
-       
+
         anim.SetBool("Is_Alive", false);
         yield return new WaitForSeconds(animDuration);
         GetComponent<LootBag>().InstantiateLoot(transform.position);

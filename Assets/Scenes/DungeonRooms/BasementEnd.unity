@@ -2148,11 +2148,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &548897948 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 237753446092973877, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
-  m_PrefabInstance: {fileID: 9060609111567537346}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &559703533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,11 +2408,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &573742166 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9025103308057919142, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
-  m_PrefabInstance: {fileID: 9060609111567537346}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &637628645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,8 +2586,8 @@ MonoBehaviour:
   grid:
     colums: 0
     rows: 0
-    verticalOffset: 4.5
-    horizontalOffset: 8
+    verticalOffset: 5
+    horizontalOffset: 9
   gridTile: {fileID: 5422979041914250118, guid: 69904b7e94efe124aa4a06275deae300, type: 3}
   availablePoints: []
 --- !u!1 &641265524
@@ -6748,11 +6738,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1593764382 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7538934840205329071, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
-  m_PrefabInstance: {fileID: 9060609111567537346}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1614660935
 GameObject:
   m_ObjectHideFlags: 0
@@ -9789,7 +9774,7 @@ PrefabInstance:
     - target: {fileID: 900816144626969607, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointUp
       value: 
-      objectReference: {fileID: 1593764382}
+      objectReference: {fileID: 0}
     - target: {fileID: 900816144626969607, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9797,15 +9782,31 @@ PrefabInstance:
     - target: {fileID: 900816144626969607, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointDown
       value: 
-      objectReference: {fileID: 548897948}
+      objectReference: {fileID: 0}
     - target: {fileID: 900816144626969607, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointLeft
       value: 
-      objectReference: {fileID: 1593764382}
+      objectReference: {fileID: 0}
     - target: {fileID: 900816144626969607, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointRight
       value: 
-      objectReference: {fileID: 573742166}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205729958504044686, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205729958504044686, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_Size.y
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3205729958504044686, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d60c845a5a72e64c91fa7e696896f38, type: 3}
+    - target: {fileID: 3205729958504044686, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3535084709934423745, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -9865,7 +9866,7 @@ PrefabInstance:
     - target: {fileID: 4810272693710734476, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointUp
       value: 
-      objectReference: {fileID: 573742166}
+      objectReference: {fileID: 0}
     - target: {fileID: 4810272693710734476, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9881,13 +9882,25 @@ PrefabInstance:
     - target: {fileID: 6438640249471300673, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: pointUp
       value: 
-      objectReference: {fileID: 548897948}
+      objectReference: {fileID: 0}
     - target: {fileID: 6438640249471300673, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7261464846384089301, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261464846384089301, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7735356968596464349, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144381869235342934, guid: e1cac17c473bdab48b045bbc52cc114a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
