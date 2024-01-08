@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8648238253522702280}
   m_Layer: 0
   m_Name: Screw
-  m_TagString: Untagged
+  m_TagString: Flasks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

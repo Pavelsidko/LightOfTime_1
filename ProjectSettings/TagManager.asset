@@ -10,7 +10,7 @@ TagManager:
   - Wall
   - Coin
   - Boss
-  - Menu
+  - Flasks
   layers:
   - Default
   - TransparentFX

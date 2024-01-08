@@ -14,8 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public Joystick joystick;
     public Joystick weaponJoystick;
     private Animator anim;
-    private bool facingLeft = true;
-
+    [SerializeField] private AudioSource walkingSoundEffect;
+    [SerializeField] private AudioSource coinSoundEffect;
+    [SerializeField] private AudioSource flasksSoundEffect;
 
     private void OnEnable()
     {
@@ -50,27 +51,41 @@ public class PlayerMovement : MonoBehaviour
         if (horizontal != 0 && vertical != 0)
         {
             anim.SetBool("Idle", false);
+            if (!walkingSoundEffect.isPlaying) { walkingSoundEffect.Play(); }
         }
-        else anim.SetBool("Idle", true);
+        else
+        {
+            walkingSoundEffect.Stop();
+            anim.SetBool("Idle", true);
+        }
 
 
-        //float weaponHorizontal = weaponJoystick.Horizontal;
-        //float weaponVertical = weaponJoystick.Vertical;
+        float weaponHorizontal = weaponJoystick.Horizontal;
+        float weaponVertical = weaponJoystick.Vertical;
 
-        //anim.SetFloat("ShootX", weaponHorizontal);
-        //anim.SetFloat("ShootY", weaponVertical);
+        anim.SetFloat("ShootX", weaponHorizontal);
+        anim.SetFloat("ShootY", weaponVertical);
 
-        //if (weaponHorizontal != 0 && weaponVertical != 0)
-        //{
-        //    //anim.SetBool("Idle", false);
-        //    anim.SetBool("Shooting", true);
-        //}
-        //else
-        //{
-        //    anim.SetBool("Shooting", false);
-        //    anim.SetBool("Idle", true);
-        //}
+        if (weaponHorizontal != 0 && weaponVertical != 0)
+        {
+            //anim.SetBool("Idle", false);
+            anim.SetBool("Shooting", true);
+        }
+        else
+        {
+            anim.SetBool("Shooting", false);
+            //anim.SetBool("Idle", true);
+        }
 
+
+        if ((weaponHorizontal != 0 && weaponVertical != 0) && (horizontal != 0 && vertical != 0))
+        {
+            anim.SetBool("WalkAndShoot", true);
+        }
+        else
+        {
+            anim.SetBool("WalkAndShoot", false);
+        }
     }
 
     private void DisablePlayerMovement()
@@ -87,7 +102,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Coin"))
         {
+            coinSoundEffect.Play();
             Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("Flasks"))
+        {
+            flasksSoundEffect.Play();
         }
     }
 

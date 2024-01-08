@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
 
     public Joystick weaponJoystick;
     public GunType gunType;
-
+    [SerializeField] private AudioSource shootSoundEffect;
 
     public enum GunType{
         Player,
@@ -45,6 +45,8 @@ public class Weapon : MonoBehaviour
             {
                 if (weaponJoystick.Horizontal > 0 || weaponJoystick.Vertical > 0 || weaponJoystick.Horizontal < 0 || weaponJoystick.Vertical < 0)
                 {
+                    shootSoundEffect.Play();
+
                     Instantiate(bullet, point.position, transform.rotation);
                     bullet.GetComponent<Bullet>().isEnemyBullet = false;
                     time = fireDelay;

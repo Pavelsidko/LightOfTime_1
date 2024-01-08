@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private HitEffect flashEffect;
     Vector2 wayPoint;
     [SerializeField] float wanderRange;
+    [SerializeField] private AudioSource damageSoundEffect;
 
     private void Awake()
     {
@@ -191,6 +192,7 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject != null)
         {
+            damageSoundEffect.Play();
             flashEffect.Flash();
             health -= damageAmount;
             healthBar.UpdateHealthBar(health, maxHealth);

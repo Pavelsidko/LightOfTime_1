@@ -12,6 +12,7 @@ public class BossWeapon : MonoBehaviour
 
     private PlayerMovement player;
     private EnemyController enemyController;
+    [SerializeField] private AudioSource shootSoundEffect;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class BossWeapon : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             angle -= 75f;
 
+            shootSoundEffect.Play();
             GameObject newBullet = Instantiate(bullet, pointUp.position, Quaternion.Euler(0f, 0f, angle));
             Bullet bulletComponent = newBullet.GetComponent<Bullet>();
             bulletComponent.isEnemyBullet = true;

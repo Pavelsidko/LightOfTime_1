@@ -22,7 +22,7 @@ public class Collection : MonoBehaviour
     public float attackSpeedChange;
     public float bulletSizeChange;
     public int coinValue;
-    
+
 
     private void Start()
     {
@@ -45,6 +45,7 @@ public class Collection : MonoBehaviour
         }
     }
 
+   
 
     
 }
