@@ -8,6 +8,9 @@ TagManager:
   - Block
   - Door
   - Wall
+  - Coin
+  - Boss
+  - Menu
   layers:
   - Default
   - TransparentFX

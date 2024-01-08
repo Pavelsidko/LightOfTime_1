@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class UiMAnager : MonoBehaviour
 {
     public GameObject gameOverMenu;
+    
 
     private void OnEnable()
     {

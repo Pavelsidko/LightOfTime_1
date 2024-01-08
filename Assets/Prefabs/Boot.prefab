@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3573552021247245268}
   - component: {fileID: 4995324288546312358}
   - component: {fileID: 5999427287897055859}
+  - component: {fileID: 2621268804686781657}
   m_Layer: 0
   m_Name: Boot
   m_TagString: Untagged
@@ -106,3 +107,30 @@ MonoBehaviour:
   attackSpeedChange: 0
   bulletSizeChange: 0
   coinValue: 0
+--- !u!50 &2621268804686781657
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905628161519116541}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 200
+  m_LinearDrag: 1
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

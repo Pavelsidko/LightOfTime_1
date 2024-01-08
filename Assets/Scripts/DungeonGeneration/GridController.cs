@@ -36,9 +36,9 @@ public class GridController : MonoBehaviour
         grid.verticalOffset += room.transform.localPosition.y;
         grid.horizontalOffset += room.transform.localPosition.x;
 
-        for (int y = 0; y < grid.rows; y++)
+        for (int y = 0; y < grid.rows - 1; y++)
         {
-            for(int x = 0; x < grid.colums; x++)
+            for(int x = 0; x < grid.colums - 1; x++)
             {
                 GameObject go = Instantiate(gridTile, transform);
                 go.GetComponent<Transform>().position = new Vector2(x - (grid.colums - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));

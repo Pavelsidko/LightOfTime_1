@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public TextMeshProUGUI collectedCoinsText; 
 
-    public static int collectedCoinsAmount = 0;
     public Joystick joystick;
     public Joystick weaponJoystick;
     private Animator anim;
@@ -43,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
         speed = GameController.MoveSpeed;
         rb.velocity = new Vector3(horizontal * speed, vertical * speed, 0);
-        collectedCoinsText.text = ": " +collectedCoinsAmount;
 
         anim.SetFloat("MoveX", horizontal);
         anim.SetFloat("MoveY", vertical);
@@ -85,7 +83,13 @@ public class PlayerMovement : MonoBehaviour
         anim.enabled = true;
         rb.bodyType = RigidbodyType2D.Dynamic;
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 
 
 

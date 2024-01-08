@@ -36,11 +36,6 @@ public class Collection : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            if (item.name == "Coin")
-            {
-                PlayerMovement.collectedCoinsAmount++;
-                GameController.CoinAmountChange(coinValue);
-            }
             GameController.HealPlayer(healthChange);
             GameController.MoveSpeedChange(moveSpeedChange);
             GameController.FireRateChange(attackSpeedChange);

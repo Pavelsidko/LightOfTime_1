@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour
 {
 
     public static GameController instance;
-    private static PlayerMovement player;
     //public static Vector2 knockBack = ;
     private static float health = 6;
     private static int maxHealth = 6;
@@ -22,10 +21,8 @@ public class GameController : MonoBehaviour
     private bool bootCollected = false;
     private bool screwCollected = false;
     private bool potionCollected = false;
-    private static int coinsCollected = 0;
 
     public static event Action onPlayerDeath;
-
 
     public List<string> collectedNames = new List<string>();
 
@@ -34,7 +31,6 @@ public class GameController : MonoBehaviour
     public static float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public static float FireRate { get => fireRate; set => fireRate = value; }
     public static float BulletSize { get => bulletSize; set => bulletSize = value; }
-    public static int CoinsCollected { get => coinsCollected; set => coinsCollected = value; }
 
 
 
@@ -87,17 +83,6 @@ public class GameController : MonoBehaviour
         bulletSize += size;
     }
 
-    public static void CoinAmountChange(int amount)
-    {
-        coinsCollected += amount;
-    }
-
-    //public static void KnockBack(Vector2 kb)
-    //{
-    //    player.rb.AddForce(kb, ForceMode2D.Impulse);
-    //}
-
-
     public void UpdateCollectedItems(Collection item)
     {
         collectedNames.Add(item.item.name);
@@ -138,5 +123,4 @@ public class GameController : MonoBehaviour
         Debug.Log("Youre dead");
         onPlayerDeath?.Invoke();
     }
-
 }

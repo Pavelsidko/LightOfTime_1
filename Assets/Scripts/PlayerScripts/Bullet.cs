@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         RaycastHit2D other = Physics2D.Raycast(transform.position, transform.up, distance);
         if (other.collider != null)
         {
-            if (other.collider.CompareTag("Enemy") && !isEnemyBullet)
+            if (other.collider.CompareTag("Enemy") && !isEnemyBullet || other.collider.CompareTag("Boss") && !isEnemyBullet)
             {
                 other.collider.GetComponent<EnemyController>().TakeDamage(1.5f);
                 Destroy(gameObject);

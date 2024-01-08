@@ -7957,6 +7957,10 @@ MonoBehaviour:
     spawnerData: {fileID: 11400000, guid: 43866d939e4b1d642b83b1972e88af92, type: 2}
   - name: RangedEnemy
     spawnerData: {fileID: 11400000, guid: 40852ed85ccb2f24f96b7fa0db024fb0, type: 2}
+  - name: ScrewChest
+    spawnerData: {fileID: 11400000, guid: 4cfda111d87cc2c439a1bb25ffb152a5, type: 2}
+  - name: bootChest
+    spawnerData: {fileID: 11400000, guid: 3e97a0c002b30ea438fe374e806f0364, type: 2}
 --- !u!1 &1737143130
 GameObject:
   m_ObjectHideFlags: 0
