@@ -1190,6 +1190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1205092368}
+  score: 0
 --- !u!4 &480936296
 Transform:
   m_ObjectHideFlags: 0
@@ -50813,6 +50814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f86979ce069ca7449e305afcea599d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winGameMenu: {fileID: 0}
 --- !u!4 &1631732517
 Transform:
   m_ObjectHideFlags: 0
@@ -51337,7 +51339,6 @@ MonoBehaviour:
   point: {fileID: 920872343}
   weaponJoystick: {fileID: 544328720}
   gunType: 0
-  shootSoundEffect: {fileID: 1848921262}
 --- !u!212 &1848921261
 SpriteRenderer:
   m_ObjectHideFlags: 0

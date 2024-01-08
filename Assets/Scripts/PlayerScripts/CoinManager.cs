@@ -9,7 +9,7 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager instance;
     public TextMeshProUGUI text;
-    int score;
+    public int score;
     bool hasBought = false;
     int costToOpen = 4;
     // Start is called before the first frame update

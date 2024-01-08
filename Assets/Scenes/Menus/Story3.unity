@@ -492,9 +492,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Emilian dared to go to the darkest and most terrible tower and ask the
-    witch living there for help, because she was in control of everything. That's
-    how his story began...
+  m_text: Emilian and his little friend dared to go to the darkest and most terrible
+    tower and ask the witch living there for help, because she was in control of
+    everything. That's how his story began...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2bcfa259d2e6bef469ed2bdef26609ca, type: 2}
   m_sharedMaterial: {fileID: 8926046417028910416, guid: 2bcfa259d2e6bef469ed2bdef26609ca, type: 2}

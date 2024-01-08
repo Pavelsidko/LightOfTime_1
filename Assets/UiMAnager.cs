@@ -25,12 +25,25 @@ public class UiMAnager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        GameController.Health = GameController.MaxHealth;
+        WipeProgress();
+
+
     }
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0);
+        WipeProgress();
+
+
+    }
+
+    private void WipeProgress()
+    {
         GameController.Health = GameController.MaxHealth;
+        GameController.MoveSpeed = 5f;
+        GameController.FireRate = 0.6f;
+        GameController.BulletSize = 0.5f;
+        CoinManager.instance.score = 0;
     }
 
 }
