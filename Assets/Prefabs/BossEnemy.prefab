@@ -213,8 +213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0005, y: 0.7399}
-  m_SizeDelta: {x: 154.4798, y: 27.1932}
+  m_AnchoredPosition: {x: -0.0005, y: 0.406}
+  m_SizeDelta: {x: 102.8657, y: 16.4898}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3774921360727860439
 MonoBehaviour:
@@ -652,15 +652,16 @@ MonoBehaviour:
   currState: 0
   enemyType: 0
   health: 0
-  maxHealth: 10
+  maxHealth: 30
   healthBar: {fileID: 1173438353873147652}
   range: 10
   speed: 1
   attackRange: 1
-  coolDown: 2
+  coolDown: 1
   notInRoom: 1
   flashEffect: {fileID: 9162116506970782317}
   wanderRange: 0.5
+  hitSoundEffect: {fileID: 8300487990162835188}
 --- !u!114 &7951348905659960478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,7 +740,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 78462a4ed000b18498554f1ecafa7469, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

@@ -33,7 +33,7 @@ RectTransform:
   m_Father: {fileID: 2615337740763613360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -185,7 +185,7 @@ MonoBehaviour:
   notInRoom: 0
   flashEffect: {fileID: 7129078069957651039}
   wanderRange: 0.5
-  damageSoundEffect: {fileID: 7832217186446210657}
+  hitSoundEffect: {fileID: 7832217186446210657}
 --- !u!114 &1778489017671633180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6755e20b5c79018438c8aed7439dcfed, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a843d0038d0930149b2a4a6002937a10, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

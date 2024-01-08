@@ -46,8 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - gameObject: {fileID: 8858715671792606679, guid: 2930d572e17a6be4f9452dbcd32f488f, type: 3}
-    weight: 0.7
-  - gameObject: {fileID: 5905628161519116541, guid: f73c6bf426861424e8555ffa62dbd67e, type: 3}
-    weight: 0.2
-  - gameObject: {fileID: 5345875728072416937, guid: 4a500f60b2a8e074ea81c151adc85348, type: 3}
-    weight: 0.1
+    weight: 0.5

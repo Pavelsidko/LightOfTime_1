@@ -42,6 +42,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float wanderRange;
     public static event Action OnBossDestroyed;
 
+    [SerializeField] private AudioSource hitSoundEffect;
+
+
 
 
     private void Awake()
@@ -197,6 +200,7 @@ public class EnemyController : MonoBehaviour
     {
         if (gameObject != null)
         {
+            hitSoundEffect.Play();
             flashEffect.Flash();
             health -= damageAmount;
             healthBar.UpdateHealthBar(health, maxHealth);

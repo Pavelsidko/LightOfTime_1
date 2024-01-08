@@ -20,6 +20,8 @@ public class Weapon : MonoBehaviour
     public Joystick weaponJoystick;
     public GunType gunType;
 
+    [SerializeField] private AudioSource shootingSoundEffect;
+
     public enum GunType
     {
         Player,
@@ -57,6 +59,7 @@ public class Weapon : MonoBehaviour
             {
                 if (weaponJoystick.Horizontal > 0 || weaponJoystick.Vertical > 0 || weaponJoystick.Horizontal < 0 || weaponJoystick.Vertical < 0)
                 {
+                    shootingSoundEffect.Play();
                     Instantiate(bullet, point.position, transform.rotation);
                     bullet.GetComponent<Bullet>().isEnemyBullet = false;
                     time = fireDelay;
@@ -83,6 +86,7 @@ public class Weapon : MonoBehaviour
 
             if (time <= 0f)
             {
+                shootingSoundEffect.Play();
                 Instantiate(bullet, point.position, transform.rotation);
                 bullet.GetComponent<Bullet>().isEnemyBullet = true;
                 time = fireDelay;
