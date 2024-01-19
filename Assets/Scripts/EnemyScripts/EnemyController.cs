@@ -62,8 +62,6 @@ public class EnemyController : MonoBehaviour
 
     }
 
-
-
     void Update()
     {
         switch (currState)
@@ -216,20 +214,25 @@ public class EnemyController : MonoBehaviour
     public IEnumerator DeathCoroutine()
     {
         float animDuration = 0.3f;
-
         anim.SetBool("Is_Alive", false);
-        yield return new WaitForSeconds(animDuration);
+        if (!gameObject.CompareTag("Boss"))
+        {
+            yield return new WaitForSeconds(animDuration);           
+        }
+        else
+        {
+            notInRoom = true;
+            yield return new WaitForSeconds(3f);
+            OnBossDestroyed?.Invoke();
+        } 
         GetComponent<LootBag>().InstantiateLoot(transform.position);
         RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
-
-        if (gameObject.CompareTag("Boss"))
-        {
-            OnBossDestroyed?.Invoke(); // Генерация события при уничтожении босса
-        }
         StopAllCoroutines();
         Destroy(gameObject);
+
     }
 
+  
 
     private IEnumerator CoolDown()
     {

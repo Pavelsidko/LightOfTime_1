@@ -383,6 +383,7 @@ MonoBehaviour:
   offset: 0
   fireDelay: 0.7
   bulletSpeed: 0
+  anim: {fileID: 0}
   bullet: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
   pointUp: {fileID: 406314167354614780}
   shootSoundEffect: {fileID: 0}
@@ -621,7 +622,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0077689886, y: -0.012568831}
@@ -692,6 +693,7 @@ MonoBehaviour:
   offset: 0
   fireDelay: 5
   bulletSpeed: 6
+  anim: {fileID: 6791735540126494229}
   bullet: {fileID: 7934015795002941588, guid: 0417bd5001ed80947bcc95ff449b80ed, type: 3}
   pointUp: {fileID: 406314167354614780}
   shootSoundEffect: {fileID: -8354501816062326041}

@@ -15,10 +15,6 @@ public class Bullet : MonoBehaviour
     public float knockBackForce = 20f;
     //GameObject bullet;
     private GameObject player;
-    
-    
-
-
 
     void Start()
     {
@@ -29,10 +25,10 @@ public class Bullet : MonoBehaviour
        
     }
 
-    // Update is called once per frame
     void Update()
     {
         RaycastHit2D other = Physics2D.Raycast(transform.position, transform.up, distance);
+        
         if (other.collider != null)
         {
             if (other.collider.CompareTag("Enemy") && !isEnemyBullet || other.collider.CompareTag("Boss") && !isEnemyBullet)
@@ -45,22 +41,11 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector2.up * speed * Time.deltaTime);
         if (other.collider != null)
         {
-            if (other.collider.CompareTag("Block"))
+            if (other.collider.CompareTag("Wall"))
             {
                 Destroy(gameObject);
             }
         }
-
-        //if (isEnemyBullet)
-        //{
-        //    currPos = transform.position;
-        //    transform.position = Vector2.MoveTowards(transform.position, playerPos, 5f * Time.deltaTime);
-        //    if (currPos == lastPos)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-        //    lastPos = currPos;
-        //}
     }
 
 
@@ -70,31 +55,23 @@ public class Bullet : MonoBehaviour
 
     }
 
-
-
-
-
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && isEnemyBullet)
+        if (collision.CompareTag("Player") && isEnemyBullet)
         {
             GameController.DamagePlayer(0.5f);
-            //Vector2 direction = (collision.transform.position - transform.position).normalized;
-            //Vector2 knockBack = direction * knockBackForce;
-            //GameController.KnockBack(knockBack);
-            //collision.gameObject.GetComponent<EnemyController>().Death();
             Destroy(gameObject);
         }
-        //if (collision.tag == "Enemy" && !isEnemyBullet)
-        //{
-        //    collision.gameObject.GetComponent<EnemyController>().Death();
-        //    Destroy(gameObject);
-        //}
-
-
+        else if ((collision.CompareTag("Enemy") || collision.CompareTag("Boss")) && !isEnemyBullet)
+        {
+            collision.GetComponent<EnemyController>().TakeDamage(1.5f);
+            Destroy(gameObject);
+        }
+        else if (collision.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
-
-
 
     private void Awake()
     {

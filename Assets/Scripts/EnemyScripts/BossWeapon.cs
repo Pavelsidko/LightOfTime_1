@@ -6,6 +6,7 @@ public class BossWeapon : MonoBehaviour
     private float time;
     public float fireDelay;
     public float bulletSpeed;
+    public Animator anim;
 
     public GameObject bullet;
     public Transform pointUp;
@@ -18,12 +19,14 @@ public class BossWeapon : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         enemyController = GetComponent<EnemyController>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         if (!enemyController.notInRoom && time <= 0f)
         {
+            anim.SetBool("IsAttack", true);
             Vector2 direction = player.transform.position - transform.position;
             direction.Normalize();
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -45,9 +48,11 @@ public class BossWeapon : MonoBehaviour
             newBullet2.GetComponent<Bullet>().speed = bulletSpeed;
 
             time = fireDelay;
+            anim.SetBool("IsAttack", false);
         }
         else
         {
+            anim.SetBool("IsAttack", false);
             time -= Time.deltaTime;
         }
     }
