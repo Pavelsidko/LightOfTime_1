@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static System.TimeZoneInfo;
 using Random = UnityEngine.Random;
 
 public class TypewriterEffect : MonoBehaviour
@@ -11,8 +12,10 @@ public class TypewriterEffect : MonoBehaviour
     [SerializeField] private float delayBeforeStart = 1f;
     [SerializeField] private float timeBtwChars = 0.1f;
     [SerializeField] private string leadingChar = "|";
-    [SerializeField] private bool leadingCharBeforeDelay = false;
-    
+     private bool leadingCharBeforeDelay = false;
+    [SerializeField] private LevelLoader levelLoader;
+    [SerializeField] private float transitionTime = 1f;
+
     private string _writer;
     private int clickCount = 0;
     void Start()
@@ -21,6 +24,8 @@ public class TypewriterEffect : MonoBehaviour
         Color color = textObject.color;
         color.a = 0;
         textObject.color = color;
+
+        StartTyping();
     }
 
     public void ShowAndStartTyping()
@@ -29,20 +34,16 @@ public class TypewriterEffect : MonoBehaviour
 
         if (clickCount == 1)
         {
-            // Make the text visible
-            Color color = textObject.color;
-            color.a = 1;
-            textObject.color = color;
-
-            StartTyping();
-        }
-        else if (clickCount == 2)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
         }
     }
     public void StartTyping()
     {
+        // Make the text visible
+        Color color = textObject.color;
+        color.a = 1;
+        textObject.color = color;
+
         if (textObject != null)
         {
             _writer = textObject.text;
@@ -52,6 +53,12 @@ public class TypewriterEffect : MonoBehaviour
         }
         else
             textObject = GetComponent<TextMeshProUGUI>();
+    }
+    IEnumerator LoadLevel(int index)
+    {
+        levelLoader.FadeOut();
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(index);
     }
 
     private IEnumerator TMPTypeWriter()

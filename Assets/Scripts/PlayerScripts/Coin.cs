@@ -6,9 +6,9 @@ public class Coin : MonoBehaviour
 {
     public int coinValue = 1;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.tag == "Player")
         {
             CoinManager.instance.ChangeScore(coinValue);
         }

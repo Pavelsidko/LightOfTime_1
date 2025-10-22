@@ -17,7 +17,4 @@ public class DungeonCrawler : MonoBehaviour
         Position += directionMoventMap[toMove];
         return Position;
     }
-
-
-
 }

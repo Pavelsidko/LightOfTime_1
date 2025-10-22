@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f661ef1f32a2bb4db640af6e68e1a66, type: 3}
+  m_Name: StartJokeDialogue
+  m_EditorClassIdentifier: 
+  npcName: Emillian
+  npcPortrait: {fileID: 21300000, guid: 0da54518f73ddbc4085d1cce6d362364, type: 3}
+  dialogueLines:
+  - It's so dark and scary here
+  - But it's not as scary commission's questions.
+  - 'What?.. '
+  - I don't know what I'm talking about, nevermind
+  autoProgressLines: 01010101
+  autoProgressDelay: 1
+  typingSpeed: 0.05

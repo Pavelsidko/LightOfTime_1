@@ -18,19 +18,41 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/Story3.unity
     guid: a7df571be281baa49a31788882f21528
   - enabled: 1
-    path: Assets/Scenes/DungeonRooms/BasementMain.unity
+    path: Assets/Scenes/StartFinish Scenes/StartScene.unity
+    guid: d7af6bc7845e50b46932e6d9b831ccc0
+  - enabled: 1
+    path: Assets/Scenes/StartFinish Scenes/TutorialScene.unity
+    guid: 729fa84b568d2ee459c4ae84267c8a1e
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementMain.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   - enabled: 1
-    path: Assets/Scenes/DungeonRooms/BasementStart.unity
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementStart.unity
     guid: c5211a5394982c243b6efee2d45e196e
   - enabled: 1
-    path: Assets/Scenes/DungeonRooms/BasementEmpty.unity
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementEmpty.unity
     guid: db1dd8fa0854e3747987170666968228
   - enabled: 1
-    path: Assets/Scenes/DungeonRooms/BasementEnd.unity
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementEnd.unity
     guid: a3235fadca8512145a04e5ff044bdf44
   - enabled: 1
-    path: Assets/Scenes/DungeonRooms/BasementBasic1.unity
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementBasic1.unity
     guid: 22da64988a5b1e24682e5af38d40994c
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementMaze.unity
+    guid: 87e3babaa732dbf4ca3be05c4b14ea38
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Level 1/BasementSpikes.unity
+    guid: f821ffb63c04fad4a8c1d043fb8c66ac
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Level 2/PrisonScene.unity
+    guid: a32a933243fb4ba449b5f1dd43cfe499
+  - enabled: 1
+    path: Assets/Scenes/DungeonRooms/Level 2/MazeScene.unity
+    guid: 4870b99407ea477478615d001933a766
+  - enabled: 1
+    path: Assets/Scenes/StartFinish Scenes/EndScene.unity
+    guid: 52d5de375da645f4290e86932b9ef5cc
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: c41a38d39c77a7c44b7b8809e62091d2, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6f8fa5d589b569743a8f92c6056dcb03, type: 2}

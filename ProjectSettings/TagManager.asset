@@ -11,6 +11,9 @@ TagManager:
   - Coin
   - Boss
   - Flasks
+  - EndGameMenu
+  - Vase
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - Water
   - UI
   - Enemies
-  - 
+  - Player
   - 
   - 
   - 
@@ -48,8 +51,17 @@ TagManager:
   - name: Behind
     uniqueID: 3651878727
     locked: 0
+  - name: Floor
+    uniqueID: 2708069509
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Effects
+    uniqueID: 1473595363
+    locked: 0
+  - name: Player
+    uniqueID: 3923174867
     locked: 0
   - name: Door
     uniqueID: 657954811
@@ -66,6 +78,9 @@ TagManager:
   - name: Enemies
     uniqueID: 4176009633
     locked: 0
-  - name: Floor
-    uniqueID: 2708069509
+  - name: UnvisitedCell
+    uniqueID: 1762484977
+    locked: 0
+  - name: Layers
+    uniqueID: 117009329
     locked: 0

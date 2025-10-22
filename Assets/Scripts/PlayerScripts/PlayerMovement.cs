@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,10 +14,23 @@ public class PlayerMovement : MonoBehaviour
 
     public Joystick joystick;
     public Joystick weaponJoystick;
+
+    private KnockbackFeedBack knockbackFeedBack;
     private Animator anim;
+    private float horizontal, vertical;
     [SerializeField] private AudioSource walkingSoundEffect;
     [SerializeField] private AudioSource coinSoundEffect;
     [SerializeField] private AudioSource flasksSoundEffect;
+
+
+    [Header("Dash Settings")]
+    public Button dashButton;
+    private float dashSpeed;
+    [SerializeField] private float dashSpeedMultiplier = 1.5f;
+    [SerializeField] private float dashDuration = 1f;
+    [SerializeField] private float dashCoolDown = 1f;
+    [SerializeField] bool isDashing;
+    [SerializeField] bool canDash = true;
 
     private void OnEnable()
     {
@@ -31,14 +45,27 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        knockbackFeedBack = GetComponent<KnockbackFeedBack>();
+        dashButton.onClick.AddListener(OnButtonClick);
         EnablePlayerMovement();
     }
 
    
     void Update()
     {
-        float horizontal = joystick.Horizontal;
-        float vertical = joystick.Vertical;
+        if (PauseController.isPaused)
+        {
+            DisablePlayerMovement();
+        }
+        else EnablePlayerMovement();
+
+        if (isDashing) return;
+
+        if (knockbackFeedBack != null && knockbackFeedBack.IsKnockbackActive)
+            return;
+
+        horizontal = joystick.Horizontal;
+        vertical = joystick.Vertical;
 
 
         speed = GameController.MoveSpeed;
@@ -68,13 +95,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (weaponHorizontal != 0 && weaponVertical != 0)
         {
-            //anim.SetBool("Idle", false);
             anim.SetBool("Shooting", true);
         }
         else
         {
             anim.SetBool("Shooting", false);
-            //anim.SetBool("Idle", true);
         }
 
 
@@ -86,9 +111,15 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("WalkAndShoot", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+
     }
 
-    private void DisablePlayerMovement()
+    public void DisablePlayerMovement()
     {
         anim.enabled= false;
         rb.bodyType = RigidbodyType2D.Static;
@@ -111,6 +142,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void OnButtonClick()
+    {
+        if (canDash)
+        {
+            Debug.Log("Dash!");
+            StartCoroutine(Dash());
+        }
+    }
 
-
+    private IEnumerator Dash()
+    {
+        dashSpeed = GameController.MoveSpeed * dashSpeedMultiplier;
+        Debug.Log("Player Dashed!");
+        canDash = false;
+        isDashing = true;
+        anim.SetBool("Dash", true);
+        rb.velocity = new Vector2(horizontal * dashSpeed, vertical * dashSpeed);
+        yield return new WaitForSeconds(dashDuration);
+        isDashing = false;
+        anim.SetBool("Dash", false);
+        yield return new WaitForSeconds(dashCoolDown);
+        canDash = true;
+    }
 }

@@ -54,7 +54,6 @@ public class RoomController : MonoBehaviour
     void Update()
     {
         UpdateRoomQueue();
-        
     }
 
     void UpdateRoomQueue()
@@ -82,14 +81,11 @@ public class RoomController : MonoBehaviour
             }
             return;
         }
-
         currentLoadRoomData = loadRoomQueue.Dequeue();
         isLoadingRoom = true;
 
-
         StartCoroutine(LoadRoomRoutine(currentLoadRoomData));
     }
-
 
     IEnumerator SpawnBossRoom()
     {
@@ -109,7 +105,6 @@ public class RoomController : MonoBehaviour
 
     public void LoadRoom(string name, int x, int y)
     { 
-
         if(DoesRoomExist(x, y) == true)
         {
             return;
@@ -123,14 +118,10 @@ public class RoomController : MonoBehaviour
         loadRoomQueue.Enqueue(newRoomData);
     }
 
-
     IEnumerator LoadRoomRoutine(RoomInfo info)
     {
         string roomName = currentWorldName + info.name;
-
         AsyncOperation loadRoom = SceneManager.LoadSceneAsync(roomName, LoadSceneMode.Additive);
-
-
 
         while(loadRoom.isDone == false)
         {
@@ -169,13 +160,10 @@ public class RoomController : MonoBehaviour
         }
     }
 
-
-
     public bool DoesRoomExist(int x, int y)
     {
         return loadedRooms.Find( item => item.X == x && item.Y == y ) != null;
     }
-
 
     public Room FindRoom(int x, int y)
     {
@@ -184,14 +172,10 @@ public class RoomController : MonoBehaviour
 
     public string GetRandomRoomName()
     {
-        string[] possibleRooms = new string[] { "Empty", "Basic1" };
+        string[] possibleRooms = new string[] { "Empty", "Basic1", "Maze", "Spikes"};
 
         return possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Length)];  
     }
-
-
-
-
 
     public void OnPlayerEnterRoom(Room room)
     {
@@ -208,7 +192,6 @@ public class RoomController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         UpdateRooms();
     }
-
 
     public void UpdateRooms()
     {

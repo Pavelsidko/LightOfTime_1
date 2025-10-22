@@ -34,19 +34,11 @@ public class ChestLootBag : MonoBehaviour
         if (droppedItem != null)
         {
             GameObject lootGameObject = Instantiate(droppedItemPrefab, spawnPosition, Quaternion.identity);
-
-
-            //animation may be here
-
-
-            float dropForce = 150f;
+            float dropForce = 1.5f;
             Vector2 dropDirecion = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             lootGameObject.GetComponent<Rigidbody2D>().AddForce(dropDirecion * dropForce, ForceMode2D.Impulse);
-
-
         }
     }
 
 }
-
 

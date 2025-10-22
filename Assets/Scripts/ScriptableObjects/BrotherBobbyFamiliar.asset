@@ -15,4 +15,4 @@ MonoBehaviour:
   familiarType: BrotherBobby
   speed: 3.5
   fireDelay: 2
-  bulletPrefab: {fileID: 7934015795002941588, guid: 7aee931520711fe48a2ffc22f23e68a1, type: 3}
+  bulletPrefab: {fileID: 7934015795002941588, guid: 55afc47f1fc98e149a0f3bd23ad8c031, type: 3}

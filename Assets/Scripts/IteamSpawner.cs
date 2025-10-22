@@ -24,13 +24,12 @@ public class IteamSpawner : MonoBehaviour
             totalWeight += spawnable.weight;
         }
     }
+
     void Start()
     {
         float pick = Random.value * totalWeight;
         int chosenIndex = 0;
         float cumulativeWeight = items[0].weight;
-
-
 
         while(pick > cumulativeWeight && chosenIndex < items.Count - 1) 
         {
@@ -38,13 +37,5 @@ public class IteamSpawner : MonoBehaviour
             cumulativeWeight += items[chosenIndex].weight;
         }
         GameObject i = Instantiate(items[chosenIndex].gameObject, transform.position, Quaternion.identity, transform) as GameObject;
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

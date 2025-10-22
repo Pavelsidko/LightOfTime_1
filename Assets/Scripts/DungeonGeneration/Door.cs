@@ -15,11 +15,11 @@ public class Door : MonoBehaviour
 
     private GameObject player;
     private float widthOffset = 4f;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {

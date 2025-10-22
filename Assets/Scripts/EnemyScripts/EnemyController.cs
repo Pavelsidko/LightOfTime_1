@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -10,40 +12,83 @@ public enum EnemyState
     Wander,
     Follow,
     Die,
-    Attack
+    Attack,
+    Leap,
+    KnockedBack
 };
-
 
 public enum EnemyType
 {
     Melee,
-    Ranged
+    Ranged,
+    Spider
 };
-
-
 
 public class EnemyController : MonoBehaviour
 {
     GameObject player;
+    Rigidbody2D rb;
+
+    [Header("References")]
+    public EnemyFloatingHealthBar healthBar;
+    [SerializeField] private HitEffect flashEffect;
+    [SerializeField] private Color hurtColor = Color.gray;
+    [SerializeField] private AudioSource hitSoundEffect;
+    [SerializeField] private GameObject exlamationMark;
+
+    [Header("Enemy Info")]
     public EnemyState currState = EnemyState.Idle;
     public EnemyType enemyType;
-    public float health, maxHealth = 3f;
-    public EnemyFloatingHealthBar healthBar;
+    public bool notInRoom = false;
+
+    [Header("Health")]
+    public float health;
+    public float maxHealth = 3f;
+
+    [Header("Movement")]
+    public float wanderRange;
     public float range;
     public float speed;
+
+    [Header("Attack")]
     public float attackRange;
-    private bool coolDownAttack = false;
     public float coolDown;
+    public bool coolDownAttack = false;
+    [Space(5)]
+    public float knockBackForce;
+    public float stunTime;
+    public float knockBackTime;
+
+    [Header("Spider Settings")]
+    public float leapSpeed = 10f;
+    public float leapRange = 3f;
+    public float leapDuration = 0.25f;
+    public float leapCoolDown = 1.0f;
+    public bool canLeap = true;
+    public bool isLeaping = false;
+
+    [Header("Context Steering")]
+    [SerializeField]
+    private List<SteeringBehaviour> steeringBehaviours;
+
+    [SerializeField]
+    private List<Detector> detectors;
+
+    [SerializeField]
+    private AIData aiData;
+
+    [SerializeField]
+    private float detectionDelay = 0.05f, aiUpdateDelay = 0.06f;
+
+    [SerializeField]
+    private ContextSolver movementDirectionSolver;
+
+
     private Animator anim;
     private Weapon weapon;
-    public bool notInRoom = false;
-    [SerializeField] private HitEffect flashEffect;
-    Vector2 wayPoint;
-    [SerializeField] float wanderRange;
-    public static event Action OnBossDestroyed;
-
-    [SerializeField] private AudioSource hitSoundEffect;
-
+    private Vector2 wayPoint;
+    private Coroutine leapCoroutine;
+    private KnockbackFeedBack knockbackFeedBack;
 
 
 
@@ -58,116 +103,156 @@ public class EnemyController : MonoBehaviour
         health = maxHealth;
         healthBar.UpdateHealthBar(health, maxHealth);
         anim = GetComponent<Animator>();
-        weapon = GameObject.FindObjectOfType(typeof(Weapon)) as Weapon;
 
+        weapon = GetComponentInChildren<Weapon>();
+        rb = GetComponent<Rigidbody2D>();
+        knockbackFeedBack = GetComponent<KnockbackFeedBack>();
+
+        exlamationMark.SetActive(false);
+
+        //Detecting Player and Obstacles around
+        InvokeRepeating("PerformDetection", 0, detectionDelay);
+    }
+    private void PerformDetection()
+    {
+        foreach (Detector detector in detectors)
+        {
+            detector.Detect(aiData);
+        }
     }
 
     void Update()
     {
+        if (PauseController.isPaused) { return; }
+
+        if (knockbackFeedBack != null && knockbackFeedBack.IsKnockbackActive)
+        {
+            if (currState != EnemyState.KnockedBack)
+            {
+                currState = EnemyState.KnockedBack;
+            }
+            return;
+        }
+
         switch (currState)
         {
             case EnemyState.Idle:
                 Idle();
                 break;
             case EnemyState.Wander:
-                Wander();
+                anim.SetBool("Is_Walking", true);
+                StartCoroutine(Wander());
                 break;
             case EnemyState.Follow:
-                Follow();
+                anim.SetBool("Is_Walking", true);
+                StartCoroutine(Follow());
                 break;
             case EnemyState.Die:
                 break;
             case EnemyState.Attack:
                 Attack();
                 break;
+            case EnemyState.KnockedBack:
+                break;
+            case EnemyState.Leap:
+                if (leapCoroutine == null)
+                {
+                    leapCoroutine = StartCoroutine(Leap());
+                }
+                break;
         }
 
-        if (!notInRoom)
+        if (!notInRoom && currState is not (EnemyState.Die or EnemyState.Leap or EnemyState.KnockedBack))
         {
-            if (IsPlayerInRange(range) && currState != EnemyState.Die)
-            {
-                currState = EnemyState.Follow;
+            if (enemyType == EnemyType.Spider && (!canLeap && isLeaping))
+                return;
 
-                // Calculate the direction to the player
-                Vector3 direction = player.transform.position - transform.position;
-
-                // Flip the sprite based on the direction
-                if (direction.x < 0 && transform.localScale.x > 0)
-                {
-                    // If the player is on the left and the sprite is not already flipped, flip the sprite
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
-                else if (direction.x > 0 && transform.localScale.x < 0)
-                {
-                    // If the player is on the right and the sprite is flipped, revert the flip
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
-            }
-            else if (!IsPlayerInRange(range) && currState != EnemyState.Die)
+            if (enemyType == EnemyType.Spider && IsPlayerInRange(leapRange) && canLeap)
             {
-                currState = EnemyState.Wander;
+                exlamationMark.SetActive(true);
+                currState = EnemyState.Leap;
             }
 
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            else if (IsPlayerInRange(attackRange))
             {
                 currState = EnemyState.Attack;
+                UpdateSpriteDirection();
+            }
 
-                // Flip the sprite based on the direction to the player
-                Vector3 direction = player.transform.position - transform.position;
-                if (direction.x < 0 && transform.localScale.x > 0)
-                {
-                    // If the player is on the left and the sprite is not already flipped, flip the sprite
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
-                else if (direction.x > 0 && transform.localScale.x < 0)
-                {
-                    // If the player is on the right and the sprite is flipped, revert the flip
-                    transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                }
+            else if (aiData.currentTarget != null)
+            {
+                currState = EnemyState.Follow;
+                exlamationMark.SetActive(true);
+                UpdateSpriteDirection();
+            }
+            else if (aiData.GetTargetsCount() > 0)
+            {
+                //Target acquisition logic
+                aiData.currentTarget = aiData.targets[0];
+            }
+            else
+            {
+                aiData.currentTarget = null;
+                currState = EnemyState.Wander;
+                UpdateSpriteDirection();
+                exlamationMark.SetActive(false);
             }
         }
         else
         {
+            exlamationMark.SetActive(false);
             currState = EnemyState.Idle;
         }
     }
+    private void UpdateSpriteDirection()
+    {
+        Vector2 velocity = rb.velocity;
 
+        // Только если есть значительное движение по X
+        if (Mathf.Abs(velocity.x) > 0.1f)
+        {
+            float newScaleX = Mathf.Abs(transform.localScale.x);
+
+            // Если движется влево - делаем scaleX отрицательным
+            if (velocity.x < 0)
+            {
+                newScaleX = -newScaleX;
+            }
+
+            transform.localScale = new Vector3(newScaleX,
+                                             transform.localScale.y,
+                                             transform.localScale.z);
+        }
+    }
 
     public bool IsPlayerInRange(float range)
     {
         if (transform == null || player == null || player.transform == null)
         {
-            // Здесь вы можете обработать ситуацию, когда один из объектов равен null
-            // Например, вы можете записать ошибку в журнал или выбросить исключение
             return false;
         }
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
 
-
-    void Wander()
+    IEnumerator Wander()
     {
-        transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
-        if (Vector2.Distance(transform.position, wayPoint) < wanderRange)
-        {
-            SetNewDestination();
-        }
-        if (IsPlayerInRange(range))
-        {
-            currState = EnemyState.Follow;
-        }
+        Vector2 moveDirection = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+        rb.velocity = moveDirection * speed;
+        yield return new WaitForSeconds(aiUpdateDelay);
     }
 
-    void SetNewDestination()
+    IEnumerator Follow()
     {
-        wayPoint = new Vector2(UnityEngine.Random.Range(-5, 5), UnityEngine.Random.Range(-5, 5));
-    }
+        //Chase logic
+        Vector2 moveDirection = movementDirectionSolver.GetDirectionToMove(steeringBehaviours, aiData);
+        rb.velocity = moveDirection * speed * 2;
+        yield return new WaitForSeconds(aiUpdateDelay);
+
+        // Двигаемся к запомненной позиции
+        // Vector2 moveDirection = contextSteering.GetDirection(lastKnownPlayerPosition.Value, obstacleMask);
 
 
-
-    void Follow()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        UpdateSpriteDirection();
     }
 
     private void Attack()
@@ -178,28 +263,83 @@ public class EnemyController : MonoBehaviour
             {
                 case (EnemyType.Melee):
                     GameController.DamagePlayer(1);
+                    GameController.KnockBackEffectPlayer(transform.position, knockBackForce, stunTime, knockBackTime);
                     StartCoroutine(CoolDown());
                     break;
                 case (EnemyType.Ranged):
                     StartCoroutine(CoolDown());
                     break;
+                case (EnemyType.Spider):
+                    GameController.DamagePlayer(1);
+                    GameController.KnockBackEffectPlayer(transform.position, knockBackForce, stunTime, knockBackTime);
+                    StartCoroutine(CoolDown());
+                    break;
             }
         }
+    }
 
+    private IEnumerator Leap()
+    {
+        if (!canLeap || isLeaping) yield break;
+
+        canLeap = false;
+        isLeaping = true;
+        Debug.Log("Прыгает!");
+
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+
+        // Apply force instead of setting velocity directly
+        rb.AddForce(direction * leapSpeed * rb.mass, ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(leapDuration);
+
+        // Gradually reduce velocity instead of instantly stopping
+        float brakeTime = 0.2f;
+        float brakeSpeed = rb.velocity.magnitude / brakeTime;
+        while (rb.velocity.magnitude > 0.1f)
+        {
+            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, Time.deltaTime * brakeSpeed);
+            yield return null;
+        }
+        rb.velocity = Vector2.zero;
+
+        isLeaping = false;
+        StartCoroutine(CoolDown());
+        yield return new WaitForSeconds(leapCoolDown);
+        canLeap = true;
+        leapCoroutine = null;
+
+        // State transition
+        if (IsPlayerInRange(attackRange))
+        {
+            currState = EnemyState.Attack;
+        }
+        else if (IsPlayerInRange(range))
+        {
+            currState = EnemyState.Follow;
+        }
+        else
+        {
+            currState = EnemyState.Wander;
+        }
     }
 
     private void Idle()
     {
-
     }
 
     private bool isAlive = true;
     public void TakeDamage(float damageAmount)
     {
+        CameraShaker.duration = 0.2f;
+        CameraShaker.start = true;
         if (gameObject != null)
         {
+            anim.SetTrigger("Is_Hurt");
             hitSoundEffect.Play();
-            flashEffect.Flash();
+            if (flashEffect != null)
+                flashEffect.Flash(hurtColor);
+
             health -= damageAmount;
             healthBar.UpdateHealthBar(health, maxHealth);
             if (health <= 0 && isAlive)
@@ -210,29 +350,24 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
     public IEnumerator DeathCoroutine()
     {
-        float animDuration = 0.3f;
+        float animDuration = 0.8f;
         anim.SetBool("Is_Alive", false);
         if (!gameObject.CompareTag("Boss"))
         {
-            yield return new WaitForSeconds(animDuration);           
+            yield return new WaitForSeconds(animDuration);
         }
         else
         {
             notInRoom = true;
             yield return new WaitForSeconds(3f);
-            OnBossDestroyed?.Invoke();
-        } 
+        }
         GetComponent<LootBag>().InstantiateLoot(transform.position);
-        RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine());
+        if (RoomController.instance != null) { RoomController.instance.StartCoroutine(RoomController.instance.RoomCoroutine()); }
         StopAllCoroutines();
         Destroy(gameObject);
-
     }
-
-  
 
     private IEnumerator CoolDown()
     {
@@ -240,4 +375,17 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(coolDown);
         coolDownAttack = false;
     }
+
+    //void OnDrawGizmosSelected()
+    //{
+
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, attackRange);
+
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, leapRange);
+
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(transform.position, range);
+    //}
 }

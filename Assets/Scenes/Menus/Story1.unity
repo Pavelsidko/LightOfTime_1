@@ -243,9 +243,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textObject: {fileID: 626672526}
   delayBeforeStart: 1
-  timeBtwChars: 0.1
+  timeBtwChars: 0.09
   leadingChar: '|'
-  leadingCharBeforeDelay: 0
+  levelLoader: {fileID: 768186954}
+  transitionTime: 1
 --- !u!114 &626672526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,8 +267,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Once upon a time, a young blacksmith's assistant Emilian lived in a small
-    village. The village flourished and people lived happily..
+  m_text: Once upon a time, a young boy Emillian lived in a small village. The village
+    flourished and people lived happily..
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2bcfa259d2e6bef469ed2bdef26609ca, type: 2}
   m_sharedMaterial: {fileID: 8926046417028910416, guid: 2bcfa259d2e6bef469ed2bdef26609ca, type: 2}
@@ -396,44 +397,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6443026815780132842, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 54f4e34b785b54e42a1d80debd256954, type: 3}
-    m_RemovedComponents:
-    - {fileID: 6443026815780132843, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6443026815780132836, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 707691244}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
---- !u!1 &707691243 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6443026815780132836, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
-  m_PrefabInstance: {fileID: 707691242}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &707691244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707691243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6246f2eae92918749919dcbded5a6724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 707691245}
-  audioClips:
-  - {fileID: 8300000, guid: 54f4e34b785b54e42a1d80debd256954, type: 3}
---- !u!82 &707691245 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 6443026815780132842, guid: 769b7780950a4214c9e8887f958eca8b, type: 3}
-  m_PrefabInstance: {fileID: 707691242}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &768186953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,6 +463,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2353ae32f1e96314d8584166443be22a, type: 3}
+--- !u!114 &768186954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6653546248342229894, guid: 2353ae32f1e96314d8584166443be22a, type: 3}
+  m_PrefabInstance: {fileID: 768186953}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5d89466b19bb64d97a149fe2c020bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1318672365
 GameObject:
   m_ObjectHideFlags: 0

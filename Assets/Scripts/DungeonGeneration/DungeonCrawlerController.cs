@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public enum Direction
 {
     up = 0,
@@ -11,9 +9,6 @@ public enum Direction
     down = 2,
     right = 3,
 };
-
-
-
 
 public class DungeonCrawlerController : MonoBehaviour
 {
@@ -26,11 +21,9 @@ public class DungeonCrawlerController : MonoBehaviour
         {Direction.right, Vector2Int.right }
     };
 
-
     public static List<Vector2Int> GenerateDungeon(DungeonGenerationData dungeonData)
     {
         List<DungeonCrawler> dungeonCrawlers= new List<DungeonCrawler>();
-
 
         for(int i = 0; i < dungeonData.numberOfCrawlers; i++)
         {
@@ -39,7 +32,6 @@ public class DungeonCrawlerController : MonoBehaviour
 
         int iteration = Random.Range(dungeonData.iterationMin, dungeonData.iterationMax);
         
-
         for(int i = 0; i < iteration; i++) 
         {
             foreach(DungeonCrawler dungeonCrawler in dungeonCrawlers)

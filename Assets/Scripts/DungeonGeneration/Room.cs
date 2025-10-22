@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-
-
     public int Width;
     public int Height;
     public int X;
@@ -64,6 +62,7 @@ public class Room : MonoBehaviour
 
 
     }
+
     void Update()
     {
         if (name.Contains("End") && !updatedDoors)
@@ -72,8 +71,6 @@ public class Room : MonoBehaviour
             updatedDoors = true;
         }
     }
-
-
 
     public void RemoveUnconnectedDoors()
     {
@@ -155,8 +152,6 @@ public class Room : MonoBehaviour
         return null;
     }
 
-
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -164,13 +159,10 @@ public class Room : MonoBehaviour
 
     }
 
-
-
     public Vector3 GetRoomCentre()
     {
         return new Vector3(X * Width, Y * Height);
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")

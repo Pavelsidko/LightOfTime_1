@@ -4,43 +4,41 @@ using UnityEngine;
 
 public class HitEffect : MonoBehaviour
 {
-    
-
     [Tooltip("Material to switch to during the flash.")]
-    [SerializeField] private Material flashMaterial;
+    [SerializeField] private Color defaultFlashColor = Color.white;
 
     [Tooltip("Duration of the flash.")]
-    [SerializeField] public float duration;
+    [SerializeField] private float duration;
 
     private SpriteRenderer spriteRenderer;
-
-    private Material originalMaterial;
-
+    private Color originalColor;
     private Coroutine flashRoutine;
 
     void Start()
     {
-        
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        
-        originalMaterial = spriteRenderer.material;
+        originalColor = spriteRenderer.color;
     }
+
     public void Flash()
+    {
+        Flash(defaultFlashColor);
+    }
+
+    public void Flash(Color flashColor)
     {
         if (flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
         }
-        flashRoutine = StartCoroutine(FlashRoutine());
+        flashRoutine = StartCoroutine(FlashRoutine(flashColor));
     }
 
-    private IEnumerator FlashRoutine()
+    private IEnumerator FlashRoutine(Color flashColor)
     {
-        spriteRenderer.material = flashMaterial;
+        spriteRenderer.color = flashColor;
         yield return new WaitForSeconds(duration);
-        spriteRenderer.material = originalMaterial;
+        spriteRenderer.color = originalColor;
         flashRoutine = null;
-        
     }
 }
